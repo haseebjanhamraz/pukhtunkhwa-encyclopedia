@@ -64,23 +64,12 @@ export default function RootLayout({ children }: RootLayoutProps) {
               {/* <NostalgiaPage /> */}
               <TextReveal
 
-                text="Unlock the Nostalgia
-
-Remember the thrill of your first high score?"
+                text="Pukhtunkhwa – Where history echoes, culture thrives, and the spirit of the Pashtun nation lives on."
               />
 
               <TextReveal
 
-                text="The excitement of discovering hidden levels? Dive back into the pixelated worlds where legends were born. Our collection of retro games spans the golden era of gaming, from arcade classics to console favorites.
-
-Experience Retro Gaming Like Never Before
-
-Revisit the timeless gameplay that defined a generation with enhanced graphics, smooth controls, and exclusive content. Whether you're a seasoned gamer or new to the retro scene, there's something for everyone.
-
-Join a Community of Gamers.
-
-
-"
+                text="Pukhtunkhwa, historically known as Khyber Pakhtunkhwa, is the cultural heartland of the Pashtun nation, rich in history, traditions, and resilience. Nestled in the northwest of Pakistan, it is a land of breathtaking landscapes, from the rugged mountains of Swat and Chitral to the fertile plains of Peshawar. Pukhtunkhwa.com is dedicated to preserving and promoting the region’s heritage by documenting its history, music, art, and traditions. Through interactive maps and curated content, we aim to highlight the beauty, struggles, and contributions of the Pashtun people, ensuring that their legacy continues to thrive for future generations."
               />
 
             </div>

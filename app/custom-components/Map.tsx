@@ -27,7 +27,7 @@ const Polygon = dynamic(
   { ssr: false }
 );
 
-const kpCenter: [number, number] = [34.5, 68.0];
+const kpCenter: [number, number] = [34.5, 71.0];
 
 const customIcon = new L.Icon({
   iconUrl: "./city.png",
@@ -81,6 +81,7 @@ const KPMap = () => {
   }, []);
 
   return (
+
     <MapContainer
       center={kpCenter}
       zoom={7}
@@ -89,7 +90,8 @@ const KPMap = () => {
         [46.774092, 77.837451],
       ]}
       minZoom={7}
-      style={{ height: "100vh", width: "100%" }}
+      style={{ height: "75vh", width: "100%" }}
+      className="dark:bg-gray-900"
     >
       <TileLayer
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"

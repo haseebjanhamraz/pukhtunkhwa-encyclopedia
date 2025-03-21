@@ -19,9 +19,9 @@ export function SiteFooter({ className }: React.HTMLAttributes<HTMLElement>) {
               rel="noreferrer"
               className="font-medium underline underline-offset-4"
             >
-              kathan.
+              Khyber Cybers (Pvt.) Ltd.
             </a>
-            
+
           </p>
         </div>
         {/* <ModeToggle /> */}

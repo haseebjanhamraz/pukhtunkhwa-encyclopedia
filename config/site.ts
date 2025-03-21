@@ -24,8 +24,8 @@ export const siteConfig = {
     },
   ],
   links: {
-    twitter: "https://twitter.com/kathanmehtaa",
-    github: "https://github.com/DarkInventor",
-    docs: "https://easyui.pro",
+    twitter: "https://twitter.com/kpcybers",
+    github: "https://github.com/kpcybers",
+    docs: "https://kpcybers.com",
   },
 }

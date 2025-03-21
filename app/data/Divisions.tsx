@@ -38,7 +38,7 @@ export const divisions = [
     ],
   },
   {
-    name: "Dera Ismail Khan Division",
+    name: "D.I Khan Division",
     districts: ["Dera Ismail Khan", "South Waziristan", "Tank"],
   },
   {
