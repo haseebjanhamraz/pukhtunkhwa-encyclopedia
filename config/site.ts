@@ -4,7 +4,7 @@ export const siteConfig = {
   name: "Pukhtunkhwa.com",
   description:
     "Pukhtunkhwa.com is a website for the Pukhtunkhwa region of Pakistan.",
-  logo: "/pukhtunkhwa.png",
+  logo: "/pukhtunkhwa-logo.png",
     mainNav: [
     {
       title: "Home",
