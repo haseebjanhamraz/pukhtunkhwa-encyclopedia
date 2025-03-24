@@ -1,7 +1,11 @@
+"use client"
+
 import {
   MagicCard,
   MagicContainer,
 } from "@/components/magicui/magic-card";
+import { districts } from "../data/DistrictsData";
+import Image from "next/image";
 
 export default function GameCard() {
   return (
@@ -10,7 +14,7 @@ export default function GameCard() {
         Must Visit Places
       </h2>
       <p className="text-muted-foreground max-w-[85%] pb-1 sm:pb-1 lg:pb-10 leading-normal sm:text-lg sm:leading-7">
-        Here are some of our fav places
+        Here are some of our favorite places to visit in Pukhtunkhwa.
       </p>
 
       <MagicContainer
@@ -18,46 +22,27 @@ export default function GameCard() {
           "mt-60 flex h-auto w-full flex-wrap justify-center gap-4 px-14 pb-10 md:mt-20 lg:mt-20"
         }
       >
-
-        <MagicCard className="flex w-4/2 sm:w-4/3 md:w-1/4 lg:1/4  cursor-pointer flex-col items-center justify-center overflow-hidden p-20 shadow-2xl">
-          <p className="z-10 whitespace-nowrap text-4xl font-medium text-gray-800 dark:text-gray-200">
-            Game 1
-          </p>
-          <div className="pointer-events-none absolute inset-0 h-full bg-[radial-gradient(circle_at_50%_120%,rgba(120,119,198,0.3),rgba(255,255,255,0))]" />
-        </MagicCard>
-        <MagicCard className="flex w-4/2 sm:w-4/3 md:w-1/4 lg:1/4  cursor-pointer flex-col items-center justify-center overflow-hidden p-20 shadow-2xl">
-          <p className="z-10 whitespace-nowrap text-4xl font-medium text-gray-800 dark:text-gray-200">
-            Game 2
-          </p>
-          <div className="pointer-events-none absolute inset-0 h-full bg-[radial-gradient(circle_at_50%_120%,rgba(120,119,198,0.3),rgba(255,255,255,0))]" />
-        </MagicCard>
-        <MagicCard className="flex w-4/2 sm:w-4/3 md:w-1/4 lg:1/4 cursor-pointer flex-col items-center justify-center overflow-hidden p-20 shadow-2xl">
-          <p className="z-10 whitespace-nowrap text-4xl font-medium text-gray-800 dark:text-gray-200">
-            Game 3
-          </p>
-          <div className="pointer-events-none absolute inset-0 h-full bg-[radial-gradient(circle_at_50%_120%,rgba(120,119,198,0.3),rgba(255,255,255,0))]" />
-        </MagicCard>
-        <MagicCard className="flex w-4/2 sm:w-4/3 md:w-1/4 lg:1/4  cursor-pointer flex-col items-center justify-center overflow-hidden p-20 shadow-2xl">
-          <p className="z-10 whitespace-nowrap text-4xl font-medium text-gray-800 dark:text-gray-200">
-            Game 4
-          </p>
-          <div className="pointer-events-none absolute inset-0 h-full bg-[radial-gradient(circle_at_50%_120%,rgba(120,119,198,0.3),rgba(255,255,255,0))]" />
-        </MagicCard>
-        <MagicCard className="flex w-4/2 sm:w-4/3 md:w-1/4 lg:1/4 cursor-pointer flex-col items-center justify-center overflow-hidden p-20 shadow-2xl">
-          <p className="z-10 whitespace-nowrap text-4xl font-medium text-gray-800 dark:text-gray-200">
-            Game 5
-          </p>
-          <div className="pointer-events-none absolute inset-0 h-full bg-[radial-gradient(circle_at_50%_120%,rgba(120,119,198,0.3),rgba(255,255,255,0))]" />
-        </MagicCard>
-        <MagicCard className="flex w-4/2 sm:w-4/3 md:w-1/4 lg:1/4 cursor-pointer flex-col items-center justify-center overflow-hidden p-20 shadow-2xl">
-          <p className="z-10 whitespace-nowrap text-4xl font-medium text-gray-800 dark:text-gray-200">
-            Game 6
-          </p>
-          <div className="pointer-events-none absolute inset-0 h-full bg-[radial-gradient(circle_at_50%_120%,rgba(120,119,198,0.3),rgba(255,255,255,0))]" />
-        </MagicCard>
+        {districts.map((district) => (
+          district.mustVisit && (
+            <MagicCard key={district.name} className="flex w-4/2 sm:w-4/3 md:w-1/4 lg:1/4 cursor-pointer flex-col items-center justify-center overflow-hidden p-20 shadow-2xl relative">
+              <p className="z-10 whitespace-nowrap text-4xl text-white hover:scale-150 transition-all duration-300 text-shadow-lg font-bold text-gray-800 dark:text-gray-200">
+                {district.name}
+              </p>
+              <div className="absolute inset-0">
+                <Image
+                  src={district.image}
+                  alt={district.name}
+                  fill
+                  className="object-cover dark:brightness-50 brightness-75 dark:contrast-150"
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw "
+                />
+                <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_120%,rgba(120,119,198,0.3),rgba(255,255,255,0))]" />
+              </div>
+            </MagicCard>
+          )
+        ))}
       </MagicContainer>
     </div>
   );
-
 }
 

@@ -13,30 +13,30 @@ interface Item {
 
 let notifications = [
   {
-    name: "battleman entered into game",
-    description: "Retro",
+    name: "News & Updates",
+    description: "AI",
     time: "15m ago",
 
     icon: "💸",
     color: "#00C9A7",
   },
   {
-    name: "battleman won 20 points",
-    description: "Retro",
+    name: "Jobs Opportunities",
+    description: "AI",
     time: "10m ago",
     icon: "👤",
     color: "#FFB800",
   },
   {
-    name: "Battleman exited",
-    description: "Retro",
+    name: "Historical Places",
+    description: "Human",
     time: "5m ago",
     icon: "💬",
     color: "#FF3D71",
   },
   {
-    name: "Battleman has received a new req",
-    description: "Retro",
+    name: "Attractions",
+    description: "Human",
     time: "2m ago",
     icon: "🗞️",
     color: "#1E86FF",

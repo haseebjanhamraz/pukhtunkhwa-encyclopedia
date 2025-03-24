@@ -9,7 +9,8 @@ export default function DistrictCard(district: any) {
           src={district.district.image}
           height={300}
           width={300}
-          alt="Image"
+          alt={`${district.district.name} image`}
+          className="w-full h-[300px] object-cover"
         />
       </div>
       <div className="p-5">

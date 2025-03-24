@@ -22,6 +22,7 @@ export const districts = [
       "The city has served as a center for Pashtun culture for centuries",
       "It was an important trading city along the ancient Silk Road",
     ],
+    mustVisit: true,
   },
   {
     id: "mardan",
@@ -45,6 +46,7 @@ export const districts = [
       "The district is a major producer of tobacco in Pakistan",
       "It was an important center of Buddhist civilization",
     ],
+    mustVisit: true,
   },
   {
     id: "charsadda",
@@ -69,6 +71,7 @@ export const districts = [
       "Has significant archaeological sites from Buddhist era",
       "Known for its traditional hospitality and culture",
     ],
+    mustVisit: true,
   },
   {
     id: "nowshera",
@@ -93,6 +96,7 @@ export const districts = [
       "Has significant military cantonments and training centers",
       "Known for its industrial zones and agricultural production",
     ],
+    mustVisit: true,
   },
   {
     id: "swat",
@@ -118,6 +122,7 @@ export const districts = [
       "Home to over 400 Buddhist sites",
       "Was an independent state until 1969",
     ],
+    mustVisit: true,
   },
   {
     id: "chitral",
@@ -142,6 +147,7 @@ export const districts = [
       "Hosts the world's highest polo ground at Shandur",
       "Has Tirich Mir, the highest peak of the Hindu Kush range",
     ],
+    mustVisit: true,
   },
   {
     id: "abbottabad",
@@ -166,6 +172,7 @@ export const districts = [
       "Has the Pakistan Military Academy, equivalent to West Point or Sandhurst",
       "Features a pleasant climate that attracts tourists year-round",
     ],
+    mustVisit: true,
   },
   {
     id: "kohat",
@@ -189,6 +196,7 @@ export const districts = [
       "The district has significant salt and gypsum deposits",
       "It's the oldest British cantonment in the former NWFP",
     ],
+    mustVisit: false,
   },
   {
     id: "dIKhan",
@@ -212,6 +220,7 @@ export const districts = [
       "Known as the southern gateway to Khyber Pakhtunkhwa",
       "Has unique cultural blend of Pashtun, Baloch, and Seraiki influences",
     ],
+    mustVisit: false,
   },
   {
     id: "bannu",
@@ -235,6 +244,7 @@ export const districts = [
       "Founded as a military base by the British in 1848",
       "One of the gateways to the Federally Administered Tribal Areas",
     ],
+    mustVisit: false,
   },
   {
     id: "swabi",
@@ -258,6 +268,7 @@ export const districts = [
       "Known for its agricultural output and educational institutions",
       "Home to the famous Gadoon Amazai Industrial Estate",
     ],
+    mustVisit: false,
   },
   {
     id: "attock",
@@ -282,6 +293,7 @@ export const districts = [
       "Has historical significance as a military garrison town",
       "Known for its proximity to the tribal areas and Khyber Pass",
     ],
+    mustVisit: false,
   },
   {
     id: "hangu",
@@ -305,6 +317,7 @@ export const districts = [
       "Has faced security challenges due to its proximity to tribal areas",
       "Home to the historic Kohat Tunnel and Kohat Fort",
     ],
+    mustVisit: false,
   },
   {
     id: "karak",
@@ -329,6 +342,7 @@ export const districts = [
       "Known for its oil and gas exploration and production",
       "Has historical significance dating back to the Gandhara civilization",
     ],
+    mustVisit: false,
   },
   {
     id: "lower-dir",
@@ -349,6 +363,7 @@ export const districts = [
       "Kalkot",
     ],
     funFacts: ["Home to the scenic Dir Valley and Kumrat Valley"],
+    mustVisit: true,
   },
   {
     id: "buner",
@@ -372,6 +387,7 @@ export const districts = [
       "Home to the scenic Ambela Pass and Panjkora River",
       "Known for its archaeological sites from the Gandhara period",
     ],
+    mustVisit: false,
   },
   {
     id: "battagram",
@@ -395,6 +411,7 @@ export const districts = [
       "Home to the scenic Allai Valley and Dobather Valley",
       "Known for its traditional Pashtun culture and customs",
     ],
+    mustVisit: true,
   },
   {
     id: "khyber",
@@ -418,6 +435,7 @@ export const districts = [
       "Home to the historic Khyber Pass and Jamrud Fort",
       "Known for its strategic location as a trade route junction",
     ],
+    mustVisit: false,
   },
   {
     id: "malakand",
@@ -441,6 +459,7 @@ export const districts = [
       "Home to the scenic Malakand Pass and Swat River",
       "Known for its traditional Pashtun culture and customs",
     ],
+    mustVisit: true,
   },
   {
     id: "mohmand",
@@ -464,6 +483,7 @@ export const districts = [
       "Home to the scenic Mohmand Dam and Mohmand Agency",
       "Known for its traditional Pashtun culture and customs",
     ],
+    mustVisit: false,
   },
   {
     id: "orakzai",
@@ -487,6 +507,7 @@ export const districts = [
       "Known for its traditional tribal culture and customs",
       "Has historical significance dating back to the Gandhara civilization",
     ],
+    mustVisit: false,
   },
   {
     id: "south-waziristan",
@@ -504,6 +525,7 @@ export const districts = [
       "Known for its traditional tribal culture and customs",
       "Has historical significance dating back to ancient times",
     ],
+    mustVisit: false,
   },
   {
     id: "tank",
@@ -527,6 +549,7 @@ export const districts = [
       "Known for its traditional tribal culture and customs",
       "Has historical significance dating back to the Gandhara civilization",
     ],
+    mustVisit: false,
   },
   {
     id: "bajaure",
@@ -544,6 +567,7 @@ export const districts = [
       "Known for its traditional tribal culture and customs",
       "Has historical significance dating back to ancient times",
     ],
+    mustVisit: false,
   },
   {
     id: "shangla",
@@ -561,6 +585,7 @@ export const districts = [
       "Home to the scenic Shangla Top and Shangla Fort",
       "Known for its traditional Pashtun culture and customs",
     ],
+    mustVisit: true,
   },
   {
     id: "upper-dir",
@@ -584,6 +609,7 @@ export const districts = [
       "Home to the scenic Kumrat Valley and Barawal Bandai",
       "Known for its traditional Pashtun culture and customs",
     ],
+    mustVisit: true,
   },
   {
     id: "kurram",
@@ -601,5 +627,6 @@ export const districts = [
       "Known for its traditional tribal culture and customs",
       "Has historical significance dating back to ancient times",
     ],
+    mustVisit: false,
   },
 ];
