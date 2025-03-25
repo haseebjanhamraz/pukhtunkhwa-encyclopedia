@@ -68,7 +68,7 @@ const KPMap = () => {
             if (Array.isArray(firstPolygon) && Array.isArray(firstPolygon[0])) {
               setKpBoundary(
                 firstPolygon.map((coord) => [coord[1], coord[0]]) as number[][]
-              ); // Extract first polygon and swap coordinates
+              );
             }
           }
         }
