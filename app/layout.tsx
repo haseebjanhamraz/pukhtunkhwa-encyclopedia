@@ -1,5 +1,6 @@
 import "@/styles/globals.css"
 import { Metadata } from "next"
+import Head from 'next/head'
 
 import { siteConfig } from "@/config/site"
 import { fontSans } from "@/lib/fonts"
@@ -41,7 +42,14 @@ export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <>
       <html lang="en" suppressHydrationWarning>
-        <head />
+        <Head>
+          <title>{siteConfig.name}</title>
+          <meta name="description" content={siteConfig.description} />
+          <meta name="theme-color" content="#ffffff" />
+          <link rel="icon" href="/favicon.ico" />
+          <link rel="shortcut icon" href="/favicon-16x16.png" />
+          <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+        </Head>
         <body
           className={cn(
             "max-h-auto bg-background font-sans antialiased",
@@ -69,7 +77,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
 
               <TextReveal
 
-                text="Pukhtunkhwa, historically known as Khyber Pakhtunkhwa, is the cultural heartland of the Pashtun nation, rich in history, traditions, and resilience. Nestled in the northwest of Pakistan, it is a land of breathtaking landscapes, from the rugged mountains of Swat and Chitral to the fertile plains of Peshawar. Pukhtunkhwa.com is dedicated to preserving and promoting the region’s heritage by documenting its history, music, art, and traditions. Through interactive maps and curated content, we aim to highlight the beauty, struggles, and contributions of the Pashtun people, ensuring that their legacy continues to thrive for future generations."
+                text="Pukhtunkhwa, historically known as Khyber Pakhtunkhwa, is the cultural heartland of the Pashtun nation, rich in history, traditions, and resilience. Nestled in the northwest of Pakistan, it is a land of breathtaking landscapes, from the rugged mountains of Swat and Chitral to the fertile plains of Peshawar. Pukhtunkhwa.com is dedicated to preserving and promoting the region's heritage by documenting its history, music, art, and traditions. Through interactive maps and curated content, we aim to highlight the beauty, struggles, and contributions of the Pashtun people, ensuring that their legacy continues to thrive for future generations."
               />
 
             </div>

@@ -43,6 +43,7 @@ interface NominatimResponse {
   geojson: GeoJsonFeature;
 }
 
+
 const KPMap = () => {
   const [kpBoundary, setKpBoundary] = useState<number[][] | null>(null);
 
@@ -66,9 +67,19 @@ const KPMap = () => {
           } else if (geojsonFeature.type === "MultiPolygon") {
             const firstPolygon = geojsonFeature.coordinates[0][0];
             if (Array.isArray(firstPolygon) && Array.isArray(firstPolygon[0])) {
-              setKpBoundary(
-                firstPolygon.map((coord) => [coord[1], coord[0]]) as number[][]
-              );
+              // setKpBoundary(
+              //   firstPolygon.map((coord: number[]) => [coord[1], coord[0]]) as number[][]
+              // );
+
+              if (
+                Array.isArray(firstPolygon) &&
+                firstPolygon.every((coord) => Array.isArray(coord) && coord.length === 2)
+              ) {
+                setKpBoundary(
+                  firstPolygon.map((coord: any) => [coord[1], coord[0]])
+                );
+              }
+
             }
           }
         }

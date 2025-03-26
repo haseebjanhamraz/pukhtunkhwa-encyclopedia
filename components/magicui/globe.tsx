@@ -8,7 +8,7 @@ import { useSpring } from "react-spring";
 const GLOBE_CONFIG: COBEOptions = {
   width: 800,
   height: 800,
-  onRender: () => {},
+  onRender: () => { },
   devicePixelRatio: 2,
   phi: 0,
   theta: 0.3,
@@ -54,6 +54,7 @@ export default function Globe({
       precision: 0.001,
     },
   }));
+  const phiRef = useRef(phi);
 
   const updatePointerInteraction = (value: any) => {
     pointerInteracting.current = value;
@@ -97,7 +98,7 @@ export default function Globe({
 
     setTimeout(() => (canvasRef.current!.style.opacity = "1"));
     return () => globe.destroy();
-  }, []);
+  }, [config, onRender, onResize, width]);
 
   return (
     <div

@@ -25,7 +25,7 @@ export default function GameCard() {
         {districts.map((district) => (
           district.mustVisit && (
             <MagicCard key={district.name} className="flex w-4/2 sm:w-4/3 md:w-1/4 lg:1/4 cursor-pointer flex-col items-center justify-center overflow-hidden p-20 shadow-2xl relative">
-              <p className="z-10 whitespace-nowrap text-4xl text-white hover:scale-150 transition-all duration-300 text-shadow-lg font-bold text-gray-800 dark:text-gray-200">
+              <p className="z-10 whitespace-nowrap text-4xl text-gray-800 dark:text-white hover:scale-150 transition-all duration-300 text-shadow-lg font-bold">
                 {district.name}
               </p>
               <div className="absolute inset-0">
