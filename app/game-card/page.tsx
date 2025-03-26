@@ -4,10 +4,11 @@ import {
   MagicCard,
   MagicContainer,
 } from "@/components/magicui/magic-card";
-import { districts } from "../data/DistrictsData";
 import Image from "next/image";
-
+import useDistricts from "../hooks/useDistricts";
+import Link from "next/link";
 export default function GameCard() {
+  const { districts } = useDistricts();
   return (
     <div className="mx-auto flex max-w-full flex-col items-center space-y-4 text-center">
       <h2 className="font-heading text-4xl leading-[1.1] sm:text-6xl md:text-3xl lg:text-5xl font-bold">
@@ -25,8 +26,10 @@ export default function GameCard() {
         {districts.map((district) => (
           district.mustVisit && (
             <MagicCard key={district.name} className="flex w-4/2 sm:w-4/3 md:w-1/4 lg:1/4 cursor-pointer flex-col items-center justify-center overflow-hidden p-20 shadow-2xl relative">
-              <p className="z-10 whitespace-nowrap text-4xl text-gray-800 dark:text-white hover:scale-150 transition-all duration-300 text-shadow-lg font-bold">
-                {district.name}
+              <p className="z-10 whitespace-nowrap text-4xl text-white dark:text-white hover:scale-150 transition-all duration-300 text-shadow-lg font-bold">
+                <Link href={`/districts/${district._id}`}>
+                  {district.name}
+                </Link>
               </p>
               <div className="absolute inset-0">
                 <Image

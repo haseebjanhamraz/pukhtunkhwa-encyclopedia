@@ -11,7 +11,7 @@ import { divisions } from "../data/Divisions";
 import { ListCollapse, CircleX } from "lucide-react";
 
 export default function Sidebar() {
-  const [isCollapsed, setIsCollapsed] = useState(false);
+  const [isCollapsed, setIsCollapsed] = useState(true);
   const [isMobile, setIsMobile] = useState(false);
 
   // Check screen size and collapse sidebar if screen size is small

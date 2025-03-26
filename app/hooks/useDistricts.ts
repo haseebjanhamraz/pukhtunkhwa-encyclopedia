@@ -17,7 +17,7 @@ interface District {
   mustVisit: boolean;
 }
 
-export const useDistricts = () => {
+export default function useDistricts() {
   const [districts, setDistricts] = useState<District[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
