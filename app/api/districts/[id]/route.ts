@@ -67,7 +67,7 @@ export async function PUT(
     }
 
     return NextResponse.json(
-      { message: "District updated successfully" },
+      { message: `${body.name} updated successfully` },
       { status: 200 }
     );
   } catch (error) {

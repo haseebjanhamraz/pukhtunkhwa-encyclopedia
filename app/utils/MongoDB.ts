@@ -1,28 +1,31 @@
-const { MongoClient, ServerApiVersion } = require("mongodb");
-const uri =
-  "mongodb+srv://haseebjanhamraz:H@$eeB#65@anpcluster.behcnv3.mongodb.net/?retryWrites=true&w=majority&appName=ANPCluster";
+import { MongoClient, ServerApiVersion } from "mongodb";
 
-// Create a MongoClient with a MongoClientOptions object to set the Stable API version
+if (!process.env.MONGODB_URI) {
+  throw new Error(
+    "Please define the MONGODB_URI environment variable in your .env.local file"
+  );
+}
+
+const uri = process.env.MONGODB_URI;
+
+
 const client = new MongoClient(uri, {
   serverApi: {
     version: ServerApiVersion.v1,
     strict: true,
-    deprecationErrors: true,
+    deprecationErrors: true,    
   },
 });
 
-async function run() {
-  try {
-    // Connect the client to the server	(optional starting in v4.7)
-    await client.connect();
-    // Send a ping to confirm a successful connection
-    await client.db("admin").command({ ping: 1 });
-    console.log(
-      "Pinged your deployment. You successfully connected to MongoDB!"
-    );
-  } finally {
-    // Ensures that the client will close when you finish/error
-    await client.close();
+let clientPromise: Promise<MongoClient>;
+
+if (process.env.NODE_ENV === "development") {
+  if (!(global as any)._mongoClientPromise) {
+    (global as any)._mongoClientPromise = client.connect();
   }
+  clientPromise = (global as any)._mongoClientPromise;
+} else {
+  clientPromise = client.connect();
 }
-run().catch(console.dir);
+
+export default clientPromise;

@@ -1,13 +1,22 @@
 import mongoose from "mongoose";
 
 const districtSchema = new mongoose.Schema({
+    id: {
+        type: String,
+        required: true,
+        unique: true
+    },
     name: {
         type: String,
         required: true,
         unique: true
     },
-    province: {
+    image: {
         type: String,
+        required: true
+    },
+    coordinates: {
+        type: Array,
         required: true
     },
     population: {
@@ -15,26 +24,28 @@ const districtSchema = new mongoose.Schema({
         required: true
     },
     area: {
-        type: Number, // in square kilometers
-        required: true
-    },
-    headquarters: {
-        type: String,
+        type: Number,
         required: true
     },
     description: {
         type: String,
         required: false
     },
-    coordinates: {
-        latitude: {
-            type: Number,
-            required: true
-        },
-        longitude: {
-            type: Number,
-            required: true
-        }
+    history: {
+        type: String,
+        required: false
+    },
+    attractions: {
+        type: Array,
+        required: false
+    },
+    funfacts: {
+        type: Array,
+        required: false
+    },
+    mustvisit: {
+        type: Boolean,
+        required: true
     },
     createdAt: {
         type: Date,
