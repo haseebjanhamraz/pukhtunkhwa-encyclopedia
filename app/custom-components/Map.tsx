@@ -101,7 +101,7 @@ const KPMap = () => {
         [46.774092, 77.837451],
       ]}
       minZoom={7}
-      style={{ height: "75vh", width: "100%" }}
+      style={{ height: "100vh", width: "100%" }}
       className="dark:bg-gray-900"
     >
       <TileLayer

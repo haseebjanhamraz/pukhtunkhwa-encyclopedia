@@ -86,3 +86,7 @@
 .dark .leaflet-control-attribution {
   filter: invert(100%) hue-rotate(180deg) brightness(95%) contrast(90%);
 }
+
+.destar {
+  font-family: var(--font-destar);
+}

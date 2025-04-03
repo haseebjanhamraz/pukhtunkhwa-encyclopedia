@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 const poetrySchema = new mongoose.Schema({
     verse: {
-        type: String,
+        type: Array,
         required: true
     },
     poet: {
@@ -11,7 +11,8 @@ const poetrySchema = new mongoose.Schema({
     },
     type: {
         type: String,
-        required: true
+        required: true,
+        enum: ['shair', 'ghazal', 'rubai', 'tappa', 'nazam', 'other']
     },
     updatedAt: {
         type: Date,
