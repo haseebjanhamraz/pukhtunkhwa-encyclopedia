@@ -28,7 +28,7 @@ export default function IndexPage() {
             </AnimatedShinyText>
           </div>
           <h1 className="text-3xl sm:text-3xl md:text-4xl lg:text-5xl font-pixel font-bold leading-tight tracking-wider text-accent-foreground text-center z-10">
-            We feel the blossom of our soil <p className="underline decoration-gray-400 decoration-4 underline-offset-2 mt-0 lg:mt-3 md:mt-0 sm:mt-0 z-10">پښتونخوا</p>
+            We feel the blossom of our soil <p className="underline decoration-gray-400 decoration-4 underline-offset-2 mt-0 lg:mt-3 md:mt-0 sm:mt-0 z-10 destar">پښتونخوا</p>
           </h1>
           <p className="max-w-[700px] text-lg sm:text-xl text-accent-foreground text-center z-10">
             Step into a world of Pukhtunkhwa, where simplicity and nostalgia blend to create a timeless experience.
