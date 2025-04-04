@@ -70,10 +70,10 @@ const Poetry = () => {
           }}
           className="relative z-10 flex flex-col justify-center items-center h-full text-center px-4"
         >
-          <p className="text-2xl md:text-4xl destar text-white mb-4 rtl:text-right drop-shadow-lg">
+          <p className="text-2xl md:text-4xl font-destar text-white mb-4 rtl:text-right drop-shadow-lg">
             {poetry[currentIndex]?.verse[0]}
           </p>
-          <p className="text-2xl md:text-4xl destar text-white mb-4 rtl:text-right drop-shadow-lg">
+          <p className="text-2xl md:text-4xl font-destar text-white mb-4 rtl:text-right drop-shadow-lg">
             {poetry[currentIndex]?.verse[1]}
           </p>
         </motion.div>

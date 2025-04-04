@@ -5,7 +5,7 @@ export const siteConfig = {
   description:
     "Pukhtunkhwa.com is a website for the Pukhtunkhwa region of Pakistan.",
   logo: "/pukhtunkhwa-logo.png",
-    mainNav: [
+  mainNav: [
     {
       title: "Home",
       href: "/",
@@ -26,6 +26,6 @@ export const siteConfig = {
   links: {
     twitter: "https://twitter.com/kpcybers",
     github: "https://github.com/kpcybers",
-    docs: "https://kpcybers.com",
+    docs: "/map",
   },
 }

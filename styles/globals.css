@@ -80,6 +80,13 @@
   }
 }
 
+@font-face {
+  font-family: "Pashto Destar";
+  src: url("/fonts/pashto-destar.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
 .dark .leaflet-layer,
 .dark .leaflet-control-zoom-in,
 .dark .leaflet-control-zoom-out,

@@ -1,6 +1,5 @@
 import "@/styles/globals.css"
 import { Metadata } from "next"
-import localFont from "next/font/local"
 import Head from "next/head"
 
 import { siteConfig } from "@/config/site"
@@ -10,12 +9,6 @@ import { SiteFooter } from "@/components/site-footer"
 import { SiteHeader } from "@/components/site-header"
 import { TailwindIndicator } from "@/components/tailwind-indicator"
 import { ThemeProvider } from "@/components/theme-provider"
-
-const destar = localFont({
-  src: "../public/fonts/pashto-destar.ttf",
-  display: "swap",
-  variable: "--font-destar",
-})
 
 export const metadata: Metadata = {
   title: {
@@ -53,8 +46,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
         <body
           className={cn(
             "max-h-auto bg-background font-sans antialiased",
-            fontSans.variable,
-            destar.variable
+            fontSans.variable
           )}
         >
           <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
