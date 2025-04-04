@@ -1,19 +1,20 @@
 import "@/styles/globals.css"
 import { Metadata } from "next"
-import Head from 'next/head'
-import localFont from 'next/font/local'
+import localFont from "next/font/local"
+import Head from "next/head"
+
 import { siteConfig } from "@/config/site"
 import { fontSans } from "@/lib/fonts"
 import { cn } from "@/lib/utils"
+import { SiteFooter } from "@/components/site-footer"
 import { SiteHeader } from "@/components/site-header"
 import { TailwindIndicator } from "@/components/tailwind-indicator"
 import { ThemeProvider } from "@/components/theme-provider"
-import { SiteFooter } from "@/components/site-footer"
 
 const destar = localFont({
-  src: '../public/fonts/pashto-destar.ttf',
-  display: 'swap',
-  variable: '--font-destar',
+  src: "../public/fonts/pashto-destar.ttf",
+  display: "swap",
+  variable: "--font-destar",
 })
 
 export const metadata: Metadata = {
@@ -59,9 +60,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
           <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
             <div className="relative flex min-h-screen flex-col">
               <SiteHeader />
-              <div className="flex-1">
-                {children}
-              </div>
+              <div className="flex-1">{children}</div>
               <SiteFooter className="border-t" />
             </div>
             <TailwindIndicator />
@@ -71,4 +70,3 @@ export default function RootLayout({ children }: RootLayoutProps) {
     </>
   )
 }
-
