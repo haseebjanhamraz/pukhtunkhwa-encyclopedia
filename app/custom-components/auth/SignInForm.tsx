@@ -1,8 +1,8 @@
 "use client"
 
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import { useRouter } from "next/navigation"
-import { signIn } from "next-auth/react"
+import { signIn, useSession } from "next-auth/react"
 import { ToastContainer, toast } from "react-toastify"
 
 import "react-toastify/dist/ReactToastify.css"
@@ -12,27 +12,48 @@ export default function SignInForm() {
   const [password, setPassword] = useState("")
   const [error, setError] = useState("")
   const [loading, setLoading] = useState(false)
+
   const router = useRouter()
+  const { data: session, status } = useSession()
+  const isAuthenticated = !!session?.user
+
+  useEffect(() => {
+    if (status === "authenticated" && session?.user && !loading) {
+      toast.success("You are already logged in")
+      if (session.user.role === "admin") {
+        router.push("/admin")
+      } else if (session.user.role === "subscriber") {
+        router.push("/user")
+      }
+      // router.push("/")
+    }
+  }, [status, session, loading, router])
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setError("")
     setLoading(true)
-
     try {
       const result = await signIn("credentials", {
         email,
         password,
         redirect: false,
       })
-
       if (result?.error) {
         setError(result.error)
         return
       }
-
-      toast.success("You have successfully signed in")
-      router.push("/")
+      if (result?.ok) {
+        toast.success("Sign in successful")
+        if (isAuthenticated && session?.user.role === "admin") {
+          router.push("/admin")
+        } else if (isAuthenticated && session?.user.role === "user") {
+          router.push("/user")
+        }
+        // router.push("/")
+      } else {
+        setError("Invalid credentials")
+      }
     } catch (err) {
       setError("An error occurred during sign in")
       console.error("Sign in error:", err)
@@ -63,6 +84,7 @@ export default function SignInForm() {
             id="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
+            disabled={isAuthenticated}
             className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-red-500 focus:outline-none"
             required
           />
@@ -80,6 +102,7 @@ export default function SignInForm() {
             id="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+            disabled={isAuthenticated}
             className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-red-500 focus:outline-none"
             required
           />
@@ -87,7 +110,7 @@ export default function SignInForm() {
 
         <button
           type="submit"
-          disabled={loading}
+          disabled={loading || isAuthenticated}
           className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 disabled:opacity-50"
         >
           {loading ? "Signing in..." : "Sign In"}
