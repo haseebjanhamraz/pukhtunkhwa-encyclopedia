@@ -3,6 +3,7 @@
 import "@/styles/globals.css"
 // import { Metadata } from "next"
 import Head from "next/head"
+import { usePathname } from "next/navigation"
 import { SessionProvider } from "next-auth/react"
 
 import { siteConfig } from "@/config/site"
@@ -35,6 +36,9 @@ interface RootLayoutProps {
 }
 
 export default function RootLayout({ children }: RootLayoutProps) {
+  const pathname = usePathname()
+  const isDashboardPage =
+    pathname.startsWith("/user") || pathname.startsWith("/admin")
   return (
     <>
       <html lang="en" suppressHydrationWarning>
@@ -55,9 +59,9 @@ export default function RootLayout({ children }: RootLayoutProps) {
           <SessionProvider>
             <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
               <div className="relative flex min-h-screen flex-col">
-                <SiteHeader />
+                {!isDashboardPage && <SiteHeader />}
                 <div className="flex-1">{children}</div>
-                <SiteFooter className="border-t" />
+                {!isDashboardPage && <SiteFooter />}
               </div>
               <TailwindIndicator />
             </ThemeProvider>

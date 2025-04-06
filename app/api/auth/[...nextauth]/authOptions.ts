@@ -1,6 +1,7 @@
 import bcrypt from "bcryptjs"
 import { NextAuthOptions } from "next-auth"
 import CredentialsProvider from "next-auth/providers/credentials"
+import Google from "next-auth/providers/google"
 
 import User from "@/app/models/User"
 import clientPromise from "@/app/utils/MongoDB"
@@ -49,6 +50,37 @@ export const authOptions: NextAuthOptions = {
         } catch (error) {
           console.error("Authorize error:", error)
           throw new Error("Invalid email or password")
+        }
+      },
+    }),
+
+    Google({
+      clientId: process.env.GOOGLE_CLIENT_ID || "",
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET || "",
+      async profile(profile) {
+        const { email, name } = profile
+        const client = await clientPromise
+        const db = client.db("pukhtunkhwa")
+
+        const existingUser = await db.collection("users").findOne({ email })
+        if (!existingUser) {
+          const newUser = await db.collection("users").insertOne({
+            name,
+            email,
+            role: "user",
+          })
+          return {
+            id: newUser.insertedId.toString(),
+            name,
+            email,
+            role: "user",
+          }
+        }
+        return {
+          id: existingUser._id.toString(),
+          name: existingUser.name,
+          email: existingUser.email,
+          role: existingUser.role,
         }
       },
     }),

@@ -30,7 +30,9 @@ export default function LogoutButton() {
   return (
     <>
       <AlertDialog>
-        <AlertDialogTrigger>Logout</AlertDialogTrigger>
+        <AlertDialogTrigger className="text-sm font-medium hover:text-red-600 transition-colors duration-200 ease-in-out">
+          Logout
+        </AlertDialogTrigger>
         <AlertDialogContent>
           <AlertDialogHeader>
             <AlertDialogTitle>
@@ -44,7 +46,12 @@ export default function LogoutButton() {
           </AlertDialogHeader>
           <AlertDialogFooter>
             <AlertDialogCancel>Cancel</AlertDialogCancel>
-            <AlertDialogAction onClick={handleLogout}>Logout</AlertDialogAction>
+            <AlertDialogAction
+              onClick={handleLogout}
+              className="bg-red-800 hover:bg-red-600 text-gray-200 hover:text-white transition-all duration-200 ease-in-out"
+            >
+              Logout
+            </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
