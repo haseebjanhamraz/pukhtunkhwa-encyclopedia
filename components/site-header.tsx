@@ -1,7 +1,6 @@
 "use client"
 
 import Link from "next/link"
-import { CircleUser } from "lucide-react"
 import { useSession } from "next-auth/react"
 
 import { siteConfig } from "@/config/site"
@@ -9,9 +8,12 @@ import { buttonVariants } from "@/components/ui/button"
 import { Icons } from "@/components/icons"
 import { MainNav } from "@/components/main-nav"
 import { ThemeToggle } from "@/components/theme-toggle"
+import LogoutButton from "@/app/custom-components/LogoutButton"
+import { UserAvatar } from "@/app/custom-components/UserAvatar"
 
 export function SiteHeader() {
   const userAuthenticated = useSession().status === "authenticated"
+  // const userEmail = useSession().data?.user?.email || ""
   return (
     <header className="bg-background sticky top-0 z-40 w-full border-b">
       <div className="container flex h-16 items-center space-x-4 sm:justify-between sm:space-x-0">
@@ -51,7 +53,10 @@ export function SiteHeader() {
             <ThemeToggle />
 
             {userAuthenticated ? (
-              <CircleUser className="h-5 w-5" />
+              <>
+                <UserAvatar />
+                <LogoutButton />
+              </>
             ) : (
               <Link
                 href="/login"
