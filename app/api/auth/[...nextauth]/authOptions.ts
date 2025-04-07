@@ -3,7 +3,6 @@ import { NextAuthOptions } from "next-auth"
 import CredentialsProvider from "next-auth/providers/credentials"
 import Google from "next-auth/providers/google"
 
-import User from "@/app/models/User"
 import clientPromise from "@/app/utils/MongoDB"
 
 export const authOptions: NextAuthOptions = {
@@ -55,10 +54,25 @@ export const authOptions: NextAuthOptions = {
     }),
 
     Google({
+      id: "google",
+      name: "Google",
+      authorization: {
+        url: "https://accounts.google.com/o/oauth2/auth",
+        params: { prompt: "consent", access_type: "offline" },
+      },
       clientId: process.env.GOOGLE_CLIENT_ID || "",
       clientSecret: process.env.GOOGLE_CLIENT_SECRET || "",
       async profile(profile) {
-        const { email, name } = profile
+        const {
+          email,
+          name,
+          picture,
+          sub, // Google ID
+          email_verified,
+          given_name,
+          family_name,
+          locale,
+        } = profile
         const client = await clientPromise
         const db = client.db("pukhtunkhwa")
 
@@ -67,12 +81,24 @@ export const authOptions: NextAuthOptions = {
           const newUser = await db.collection("users").insertOne({
             name,
             email,
+            picture,
+            sub,
+            email_verified,
+            given_name,
+            family_name,
+            locale,
             role: "user",
           })
           return {
             id: newUser.insertedId.toString(),
             name,
             email,
+            picture,
+            sub,
+            email_verified,
+            given_name,
+            family_name,
+            locale,
             role: "user",
           }
         }
@@ -80,6 +106,12 @@ export const authOptions: NextAuthOptions = {
           id: existingUser._id.toString(),
           name: existingUser.name,
           email: existingUser.email,
+          picture: existingUser.picture,
+          sub: existingUser.sub,
+          email_verified: existingUser.email_verified,
+          given_name: existingUser.given_name,
+          family_name: existingUser.family_name,
+          locale: existingUser.locale,
           role: existingUser.role,
         }
       },

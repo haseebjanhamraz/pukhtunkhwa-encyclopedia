@@ -1,61 +1,62 @@
-"use client";
+"use client"
 
-import dynamic from "next/dynamic";
-import "leaflet/dist/leaflet.css";
-import L from "leaflet";
-import { useEffect, useState } from "react";
-import { districts } from "../data/DistrictsData";
-import DistrictCard from "./DistrictCard";
+import dynamic from "next/dynamic"
+
+import "leaflet/dist/leaflet.css"
+import { useEffect, useState } from "react"
+import L from "leaflet"
+
+import { districts } from "../data/DistrictsData"
+import DistrictMinimalist from "./DistrictMinimalist"
 
 const MapContainer = dynamic(
   () => import("react-leaflet").then((mod) => mod.MapContainer),
   { ssr: false }
-);
+)
 const TileLayer = dynamic(
   () => import("react-leaflet").then((mod) => mod.TileLayer),
   { ssr: false }
-);
+)
 const Marker = dynamic(
   () => import("react-leaflet").then((mod) => mod.Marker),
   { ssr: false }
-);
+)
 const Popup = dynamic(() => import("react-leaflet").then((mod) => mod.Popup), {
   ssr: false,
-});
+})
 const Polygon = dynamic(
   () => import("react-leaflet").then((mod) => mod.Polygon),
   { ssr: false }
-);
+)
 
-const kpCenter: [number, number] = [34.5, 71.0];
+const kpCenter: [number, number] = [34.5, 71.0]
 
 const customIcon = new L.Icon({
   iconUrl: "./city.png",
   iconSize: [35, 35],
-});
+})
 
 interface GeoJsonFeature {
-  type: "Polygon" | "MultiPolygon";
-  coordinates: number[][][] | number[][][][];
+  type: "Polygon" | "MultiPolygon"
+  coordinates: number[][][] | number[][][][]
 }
 
 interface NominatimResponse {
-  geojson: GeoJsonFeature;
+  geojson: GeoJsonFeature
 }
 
-
 const KPMap = () => {
-  const [kpBoundary, setKpBoundary] = useState<number[][] | null>(null);
+  const [kpBoundary, setKpBoundary] = useState<number[][] | null>(null)
 
   useEffect(() => {
     const fetchBoundary = async () => {
-      const url = `https://nominatim.openstreetmap.org/search.php?state=Khyber%20Pakhtunkhwa&polygon_geojson=1&format=jsonv2`;
+      const url = `https://nominatim.openstreetmap.org/search.php?state=Khyber%20Pakhtunkhwa&polygon_geojson=1&format=jsonv2`
 
       try {
-        const response = await fetch(url);
-        const json: NominatimResponse[] = await response.json();
+        const response = await fetch(url)
+        const json: NominatimResponse[] = await response.json()
         if (json.length > 0 && json[0].geojson) {
-          const geojsonFeature = json[0].geojson;
+          const geojsonFeature = json[0].geojson
 
           if (geojsonFeature.type === "Polygon") {
             setKpBoundary(
@@ -63,9 +64,9 @@ const KPMap = () => {
                 coord[1],
                 coord[0],
               ]) as number[][]
-            ); // Extract the main polygon and swap coordinates
+            ) // Extract the main polygon and swap coordinates
           } else if (geojsonFeature.type === "MultiPolygon") {
-            const firstPolygon = geojsonFeature.coordinates[0][0];
+            const firstPolygon = geojsonFeature.coordinates[0][0]
             if (Array.isArray(firstPolygon) && Array.isArray(firstPolygon[0])) {
               // setKpBoundary(
               //   firstPolygon.map((coord: number[]) => [coord[1], coord[0]]) as number[][]
@@ -73,26 +74,26 @@ const KPMap = () => {
 
               if (
                 Array.isArray(firstPolygon) &&
-                firstPolygon.every((coord) => Array.isArray(coord) && coord.length === 2)
+                firstPolygon.every(
+                  (coord) => Array.isArray(coord) && coord.length === 2
+                )
               ) {
                 setKpBoundary(
                   firstPolygon.map((coord: any) => [coord[1], coord[0]])
-                );
+                )
               }
-
             }
           }
         }
       } catch (error) {
-        console.error("Error fetching boundary:", error);
+        console.error("Error fetching boundary:", error)
       }
-    };
+    }
 
-    fetchBoundary();
-  }, []);
+    fetchBoundary()
+  }, [])
 
   return (
-
     <MapContainer
       center={kpCenter}
       zoom={7}
@@ -102,7 +103,7 @@ const KPMap = () => {
       ]}
       minZoom={7}
       style={{ height: "100vh", width: "100%" }}
-      className="dark:bg-gray-900"
+      className="z-0 dark:bg-gray-900"
     >
       <TileLayer
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -131,12 +132,12 @@ const KPMap = () => {
           icon={customIcon}
         >
           <Popup>
-            <DistrictCard district={district} />
+            <DistrictMinimalist district={district} />
           </Popup>
         </Marker>
       ))}
     </MapContainer>
-  );
-};
+  )
+}
 
-export default KPMap;
+export default KPMap

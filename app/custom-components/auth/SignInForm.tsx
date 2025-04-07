@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from "react"
 import { useRouter } from "next/navigation"
-import { signIn, useSession } from "next-auth/react"
+import { getSession, signIn, useSession } from "next-auth/react"
 import { ToastContainer, toast } from "react-toastify"
 
 import "react-toastify/dist/ReactToastify.css"
@@ -25,7 +25,7 @@ export default function SignInForm() {
       } else if (session.user.role === "subscriber") {
         router.push("/user")
       }
-      // router.push("/")
+      router.push("/admin")
     }
   }, [status, session, loading, router])
 
@@ -62,8 +62,49 @@ export default function SignInForm() {
     }
   }
 
+  // const handleGoogleSignIn = async () => {
+  //   setError("")
+  //   setLoading(true)
+  //   try {
+  //     const result = await signIn("google", { redirect: false })
+  //     if (result?.error) {
+  //       setError(result.error)
+  //       return
+  //     }
+  //     if (result?.ok) {
+  //       toast.success("Sign in successful")
+  //       // set session token in cookie
+  //       const session = await getSession()
+  //       if (session?.user) {
+  //         document.cookie = `session=${session.user}; path=/; max-age=3600;`
+  //       }
+  //       if (isAuthenticated && session?.user.role === "admin") {
+  //         router.push("/admin")
+  //       } else if (isAuthenticated && session?.user.role === "user") {
+  //         router.push("/user")
+  //       }
+  //       // router.push("/")
+  //     } else {
+  //       setError("Invalid credentials")
+  //     }
+  //   } catch (err) {
+  //     setError("An error occurred during sign in")
+  //     console.error("Sign in error:", err)
+  //   } finally {
+  //     setLoading(false)
+  //   }
+  // }
+
   return (
     <>
+      <div className="flex justify-center items-center mb-4">
+        <button
+          onClick={() => signIn("google")}
+          className="bg-white text-black px-4 py-2 rounded-md shadow-md hover:bg-gray-200 transition duration-300 ease-in-out"
+        >
+          Continue with Google
+        </button>
+      </div>
       <form onSubmit={handleSubmit} className="w-full max-w-md space-y-4 p-6">
         {error && (
           <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded">

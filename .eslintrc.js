@@ -10,5 +10,9 @@ module.exports = {
   rules: {
     "react/no-unescaped-entities": "error",
     "react-hooks/exhaustive-deps": "warn",
+    "react/prop-types": "off",
+    "react/react-in-jsx-scope": "off",
+    // No Explicit Any
+    "@typescript-eslint/no-explicit-any": "off",
   },
 }
