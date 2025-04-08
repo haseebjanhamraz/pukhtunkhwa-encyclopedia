@@ -31,7 +31,7 @@ export function UserAvatar() {
         <DropdownMenuGroup>
           <Link href="/admin">
             <DropdownMenuItem className="cursor-pointer">
-              Admin Dashboard
+              Dashboard
               <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
             </DropdownMenuItem>
           </Link>

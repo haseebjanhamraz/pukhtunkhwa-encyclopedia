@@ -1,4 +1,5 @@
 import bcrypt from "bcryptjs"
+import { OAuth2Client } from "google-auth-library"
 import { NextAuthOptions } from "next-auth"
 import CredentialsProvider from "next-auth/providers/credentials"
 import Google from "next-auth/providers/google"
@@ -52,67 +53,82 @@ export const authOptions: NextAuthOptions = {
         }
       },
     }),
+    CredentialsProvider({
+      id: "google-jwt",
+      name: "Google",
+      credentials: {
+        credential: { type: "text" },
+      },
+      async authorize(credentials) {
+        if (!credentials?.credential) throw new Error("Missing Google token")
 
+        try {
+          const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID)
+          const ticket = await client.verifyIdToken({
+            idToken: credentials.credential,
+            audience: process.env.GOOGLE_CLIENT_ID,
+          })
+
+          const payload = ticket.getPayload()
+          if (!payload) throw new Error("Invalid Google token")
+
+          // Reuse your existing user handling logic
+          const mongoClient = await clientPromise
+          const db = mongoClient.db("pukhtunkhwa")
+
+          const existingUser = await db
+            .collection("users")
+            .findOne({ email: payload.email })
+
+          // Same user creation/update logic as original Google provider
+          if (!existingUser) {
+            const newUser = await db.collection("users").insertOne({
+              name: payload.name,
+              email: payload.email,
+              picture: payload.picture,
+              sub: payload.sub,
+              email_verified: payload.email_verified,
+              given_name: payload.given_name,
+              family_name: payload.family_name,
+              locale: payload.locale,
+              role: "user",
+            })
+
+            return {
+              id: newUser.insertedId.toString(),
+              ...payload,
+              role: "user",
+            }
+          }
+
+          return {
+            id: existingUser._id.toString(),
+            ...existingUser,
+            role: existingUser.role,
+          }
+        } catch (error) {
+          console.error("Google JWT verification failed:", error)
+          return null
+        }
+      },
+    }),
+
+    // Original Google OAuth provider remains for regular flow
     Google({
       id: "google",
       name: "Google",
-      authorization: {
-        url: "https://accounts.google.com/o/oauth2/auth",
-        params: { prompt: "consent", access_type: "offline" },
-      },
-      clientId: process.env.GOOGLE_CLIENT_ID || "",
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET || "",
-      async profile(profile) {
-        const {
-          email,
-          name,
-          picture,
-          sub, // Google ID
-          email_verified,
-          given_name,
-          family_name,
-          locale,
-        } = profile
-        const client = await clientPromise
-        const db = client.db("pukhtunkhwa")
-
-        const existingUser = await db.collection("users").findOne({ email })
-        if (!existingUser) {
-          const newUser = await db.collection("users").insertOne({
-            name,
-            email,
-            picture,
-            sub,
-            email_verified,
-            given_name,
-            family_name,
-            locale,
-            role: "user",
-          })
-          return {
-            id: newUser.insertedId.toString(),
-            name,
-            email,
-            picture,
-            sub,
-            email_verified,
-            given_name,
-            family_name,
-            locale,
-            role: "user",
-          }
-        }
+      clientId: process.env.GOOGLE_CLIENT_ID!,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
+      profile: async (profile) => {
         return {
-          id: existingUser._id.toString(),
-          name: existingUser.name,
-          email: existingUser.email,
-          picture: existingUser.picture,
-          sub: existingUser.sub,
-          email_verified: existingUser.email_verified,
-          given_name: existingUser.given_name,
-          family_name: existingUser.family_name,
-          locale: existingUser.locale,
-          role: existingUser.role,
+          id: profile.sub,
+          name: profile.name,
+          email: profile.email,
+          image: profile.picture,
+          role: "user",
+          sub: profile.sub,
+          email_verified: profile.email_verified,
+          given_name: profile.given_name,
         }
       },
     }),

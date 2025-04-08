@@ -39,7 +39,7 @@ const Poetry = () => {
 
   return (
     <div className="relative w-full h-screen overflow-hidden">
-      <AnimatePresence mode="wait">
+      <AnimatePresence>
         {/* Background Image */}
         <motion.div
           key={`bg-${currentIndex}`}

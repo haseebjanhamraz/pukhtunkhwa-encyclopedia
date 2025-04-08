@@ -49,6 +49,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
           <link rel="icon" href="/favicon.ico" />
           <link rel="shortcut icon" href="/favicon-16x16.png" />
           <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+          <script src="https://accounts.google.com/gsi/client" async></script>
         </Head>
         <body
           className={cn(

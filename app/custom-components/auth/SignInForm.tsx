@@ -2,12 +2,14 @@
 
 import React, { useEffect, useState } from "react"
 import { useRouter } from "next/navigation"
-import { getSession, signIn, useSession } from "next-auth/react"
+import { signIn, useSession } from "next-auth/react"
 import { ToastContainer, toast } from "react-toastify"
 
+import GoogleAuth from "./GoogleAuth"
 import "react-toastify/dist/ReactToastify.css"
 
 export default function SignInForm() {
+  const client_id = process.env.GOOGLE_CLIENT_ID
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const [error, setError] = useState("")
@@ -19,7 +21,7 @@ export default function SignInForm() {
 
   useEffect(() => {
     if (status === "authenticated" && session?.user && !loading) {
-      toast.success("You are already logged in")
+      toast.success("You are logged in. Redirecting to the dashboard...")
       if (session.user.role === "admin") {
         router.push("/admin")
       } else if (session.user.role === "subscriber") {
@@ -62,48 +64,17 @@ export default function SignInForm() {
     }
   }
 
-  // const handleGoogleSignIn = async () => {
-  //   setError("")
-  //   setLoading(true)
-  //   try {
-  //     const result = await signIn("google", { redirect: false })
-  //     if (result?.error) {
-  //       setError(result.error)
-  //       return
-  //     }
-  //     if (result?.ok) {
-  //       toast.success("Sign in successful")
-  //       // set session token in cookie
-  //       const session = await getSession()
-  //       if (session?.user) {
-  //         document.cookie = `session=${session.user}; path=/; max-age=3600;`
-  //       }
-  //       if (isAuthenticated && session?.user.role === "admin") {
-  //         router.push("/admin")
-  //       } else if (isAuthenticated && session?.user.role === "user") {
-  //         router.push("/user")
-  //       }
-  //       // router.push("/")
-  //     } else {
-  //       setError("Invalid credentials")
-  //     }
-  //   } catch (err) {
-  //     setError("An error occurred during sign in")
-  //     console.error("Sign in error:", err)
-  //   } finally {
-  //     setLoading(false)
-  //   }
-  // }
-
   return (
     <>
       <div className="flex justify-center items-center mb-4">
         <button
+          id="g_id_onload"
           onClick={() => signIn("google")}
           className="bg-white text-black px-4 py-2 rounded-md shadow-md hover:bg-gray-200 transition duration-300 ease-in-out"
         >
           Continue with Google
         </button>
+        {/* <GoogleAuth /> */}
       </div>
       <form onSubmit={handleSubmit} className="w-full max-w-md space-y-4 p-6">
         {error && (

@@ -69,7 +69,7 @@ export default function IndexPage() {
       </div>
 
       {/* Text Reveal Section */}
-      <div className="flex items-center justify-center rounded-lg bg-white dark:bg-black overflow-hidden h-auto">
+      <div className="items-center justify-center rounded-lg bg-white dark:bg-black overflow-hidden h-auto">
         <TextReveal text="Pukhtunkhwa – Where history echoes, culture thrives, and the spirit of the Pashtun nation lives on." />
         <TextReveal text="Pukhtunkhwa, historically known as Khyber Pakhtunkhwa, is the cultural heartland of the Pashtun nation, rich in history, traditions, and resilience. Nestled in the northwest of Pakistan, it is a land of breathtaking landscapes, from the rugged mountains of Swat and Chitral to the fertile plains of Peshawar. Pukhtunkhwa.com is dedicated to preserving and promoting the region's heritage by documenting its history, music, art, and traditions. Through interactive maps and curated content, we aim to highlight the beauty, struggles, and contributions of the Pashtun people, ensuring that their legacy continues to thrive for future generations." />
       </div>
