@@ -1,0 +1,27 @@
+services:
+  app:
+    build:
+      context: .
+    ports:
+      - "3000:3000"
+    environment:
+      - MONGODB_URI={MONGODB_URI}
+      - NODE_ENV=development
+      - PORT=3000
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+    command: npm run dev
+    depends_on:
+      - mongo
+    networks:
+      - app-network
+
+  mongo:
+    image: mongo:latest
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+    networks:
+      - app-network
