@@ -2,6 +2,7 @@
 
 import { useState } from "react"
 import Link from "next/link"
+import { usePathname } from "next/navigation"
 import { motion } from "framer-motion"
 import { Building2, Home, Menu, Settings, Users, X } from "lucide-react"
 
@@ -35,10 +36,13 @@ export default function Sidebar({
   collapsed,
   setCollapsed,
 }: DashboardSidebarProps) {
+  const path = usePathname()
+  const isActive = (href: string) => {
+    return path === href
+  }
   const [mobileOpen, setMobileOpen] = useState(false)
   const toggleSidebar = () => setCollapsed(!collapsed)
   const toggleMobile = () => setMobileOpen(!mobileOpen)
-
   return (
     <>
       {/* Mobile Toggle Button */}
@@ -76,7 +80,7 @@ export default function Sidebar({
               href={link.href}
               className={`flex items-center p-2 rounded-md hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-all ${
                 collapsed ? "justify-center" : "gap-3"
-              }`}
+              } ${link.href === path ? "bg-zinc-100 dark:bg-zinc-800" : ""}`}
             >
               {link.icon}
               {!collapsed && <span className="text-sm">{link.name}</span>}
