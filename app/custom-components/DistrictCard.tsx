@@ -1,10 +1,17 @@
 import React from "react"
 import Image from "next/image"
+import Link from "next/link"
+import useWeather from "../hooks/useWeather"
 
-export default function DistrictMinimalist(district: any) {
+export default function DistrictCard(district: any) {
   if (!district.district) {
     return <div className="text-center">No district found</div>
   }
+  const { weather, loading, error } = useWeather(district.district._id)
+  if (loading) return <div>Loading...</div>
+  if (error) return <div>Error: {error}</div>
+  if (!district) return <div>District not found</div>
+
   return (
     <div className="max-w-full bg-white border border-gray-200 rounded-lg shadow-sm">
       <div className="w-full">
@@ -17,11 +24,11 @@ export default function DistrictMinimalist(district: any) {
         />
       </div>
       <div className="p-5">
-        <a href="#">
+        <Link href={`districts/${district.district._id}`}>
           <h5 className="mb-2 text-2xl font-bold tracking-tight text-green-700">
             {district.district.name}
           </h5>
-        </a>
+        </Link>
         <p className="mb-3 font-normal text-gray-700">
           {district.district.description}
         </p>

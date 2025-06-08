@@ -1,12 +1,10 @@
 import React from "react"
 import Image from "next/image"
 import Link from "next/link"
-
 export default function DistrictMinimalist(district: {
   // Define the structure of the district prop
   district: {
     _id?: string
-    id: string
     name: string
     image: string
     coordinates: number[]
@@ -47,6 +45,20 @@ export default function DistrictMinimalist(district: {
               </span>
             )
           )}
+        </div>
+      </div>
+      <div className="p-4">
+        <h4 className="mb-2 text-lg font-bold tracking-tight text-gray-900">
+          History
+        </h4>
+        <p>{district.district.history}</p>
+        <div className="flex gap-3">
+          <span className="inline-flex items-center rounded-md bg-gray-50 px-2 py-1 text-xs font-medium text-gray-600 ring-1 ring-gray-500/10 ring-inset">
+            Population : {district.district.population.toLocaleString()}
+          </span>
+          <span className="inline-flex items-center rounded-md bg-green-50 px-2 py-1 text-xs font-medium text-green-700 ring-1 ring-green-600/10 ring-inset">
+            Area: {district.district.area.toLocaleString()} km²
+          </span>
         </div>
       </div>
     </div>

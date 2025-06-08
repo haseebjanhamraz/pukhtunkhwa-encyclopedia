@@ -25,7 +25,6 @@ export async function POST(req: NextRequest) {
     const db = client.db("pukhtunkhwa")
     const collection = db.collection("districts")
     const body = await req.json()
-    console.log(body)
     const district = new District(body)
     const result = await collection.insertOne(district)
     return NextResponse.json(

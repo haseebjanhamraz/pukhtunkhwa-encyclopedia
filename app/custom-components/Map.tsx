@@ -6,7 +6,8 @@ import "leaflet/dist/leaflet.css"
 import { useEffect, useState } from "react"
 import L from "leaflet"
 
-import { districts } from "../data/DistrictsData"
+// import { districts } from "../data/DistrictsData"
+import useDistricts from "../hooks/useDistricts"
 import DistrictMinimalist from "./DistrictMinimalist"
 
 const MapContainer = dynamic(
@@ -46,8 +47,9 @@ interface NominatimResponse {
 }
 
 const KPMap = () => {
+  const alldistricts = useDistricts()
+  const districts = alldistricts.districts
   const [kpBoundary, setKpBoundary] = useState<number[][] | null>(null)
-
   useEffect(() => {
     const fetchBoundary = async () => {
       const url = `https://nominatim.openstreetmap.org/search.php?state=Khyber%20Pakhtunkhwa&polygon_geojson=1&format=jsonv2`
@@ -68,10 +70,6 @@ const KPMap = () => {
           } else if (geojsonFeature.type === "MultiPolygon") {
             const firstPolygon = geojsonFeature.coordinates[0][0]
             if (Array.isArray(firstPolygon) && Array.isArray(firstPolygon[0])) {
-              // setKpBoundary(
-              //   firstPolygon.map((coord: number[]) => [coord[1], coord[0]]) as number[][]
-              // );
-
               if (
                 Array.isArray(firstPolygon) &&
                 firstPolygon.every(

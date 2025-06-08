@@ -16,9 +16,6 @@ export const authOptions: NextAuthOptions = {
       },
       async authorize(credentials) {
         const { email, password } = credentials || {}
-
-        console.log("Credentials received:", { email, password })
-
         if (!email || !password) {
           console.error("Missing email or password")
           throw new Error("Missing email or password")
@@ -39,8 +36,6 @@ export const authOptions: NextAuthOptions = {
             console.error("Invalid password for email:", email)
             throw new Error("Invalid password")
           }
-
-          console.log("User authenticated successfully:", user)
           return {
             id: user._id.toString(),
             name: user.name,

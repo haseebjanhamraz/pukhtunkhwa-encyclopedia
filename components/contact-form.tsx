@@ -39,7 +39,6 @@ export function ContactForm() {
     })
 
     function onSubmit(values: z.infer<typeof formSchema>) {
-        console.log(values)
         form.reset()
     }
 

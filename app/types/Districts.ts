@@ -1,7 +1,6 @@
 // Districts type
 export type Districts = {
   _id: string
-  id: string
   name: string
   coordinates: number[]
   population: number
