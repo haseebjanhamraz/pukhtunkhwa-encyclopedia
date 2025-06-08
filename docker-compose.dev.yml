@@ -4,33 +4,36 @@ services:
   web:
     build:
       context: .
-      dockerfile: Dockerfile
-    container_name: web
-    restart: unless-stopped
+      dockerfile: Dockerfile.dev
+    container_name: web-dev
+    volumes:
+      - ./:/usr/src/app
+      - /usr/src/app/node_modules
     ports:
       - "3000:3000"
     environment:
       - MONGODB_URI=mongodb://mongo:27017/pukhtunkhwa
-      - NODE_ENV=production
+      - NODE_ENV=development
       - PORT=3000
+    command: npm run dev
     depends_on:
       - mongo
     networks:
       - app-network
 
   mongo:
-    container_name: mongo
+    container_name: mongo-dev
     image: mongo:6.0
     restart: unless-stopped
     volumes:
-      - mongo-data:/data/db
+      - mongo-dev-data:/data/db
     ports:
       - "27017:27017"
     networks:
       - app-network
 
 volumes:
-  mongo-data:
+  mongo-dev-data:
     driver: local
 
 networks:

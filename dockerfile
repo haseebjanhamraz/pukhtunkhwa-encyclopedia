@@ -1,20 +1,38 @@
-# Install dependencies only when needed
-FROM node:20.0.0-alpine AS deps
+# Stage 1: Build the application
+FROM node:18-alpine AS builder
+
 WORKDIR /usr/src/app
-COPY package.json ./
-COPY package-lock.json ./
+
+# Copy package files first for better caching
+COPY package*.json ./
+
+# Install dependencies
 RUN npm install
 
-# Rebuild the source code only when needed
-FROM node:20.0.0-alpine AS builder
+# Copy all files
 COPY . .
-COPY --from=deps /usr/src/app/node_modules ./node_modules
+
+# Build the application
 RUN npm run build
 
-# Production image, copy all the files and run the app
-FROM node:20.0.0-alpine AS production
+# Stage 2: Production image
+FROM node:18-alpine
+
 WORKDIR /usr/src/app
-COPY --from=builder /usr/src/app ./
-ENV NODE_ENV=production
+
+# Copy package files again
+COPY package*.json ./
+
+# Install only production dependencies
+RUN npm install --only=production
+
+# Copy built files from builder
+COPY --from=builder /usr/src/app/.next ./.next
+COPY --from=builder /usr/src/app/public ./public
+COPY --from=builder /usr/src/app/node_modules ./node_modules
+
+# Expose the port
 EXPOSE 3000
+
+# Start the application
 CMD ["npm", "start"]
