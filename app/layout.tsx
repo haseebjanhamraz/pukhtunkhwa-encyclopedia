@@ -7,29 +7,15 @@ import { usePathname } from "next/navigation"
 import { SessionProvider } from "next-auth/react"
 
 import { siteConfig } from "@/config/site"
+import { metadata } from "@/config/metadata"
 import { fontSans } from "@/lib/fonts"
 import { cn } from "@/lib/utils"
 import { SiteFooter } from "@/components/site-footer"
 import { SiteHeader } from "@/components/site-header"
 import { TailwindIndicator } from "@/components/tailwind-indicator"
 import { ThemeProvider } from "@/components/theme-provider"
+import { JsonLd } from "@/components/json-ld"
 
-// export const metadata: Metadata = {
-//   title: {
-//     default: siteConfig.name,
-//     template: `%s - ${siteConfig.name}`,
-//   },
-//   description: siteConfig.description,
-//   themeColor: [
-//     { media: "(prefers-color-scheme: light)", color: "white" },
-//     { media: "(prefers-color-scheme: dark)", color: "black" },
-//   ],
-//   icons: {
-//     icon: "/favicon.ico",
-//     shortcut: "/favicon-16x16.png",
-//     apple: "/apple-touch-icon.png",
-//   },
-// }
 
 interface RootLayoutProps {
   children: React.ReactNode
@@ -65,6 +51,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
                 {!isDashboardPage && <SiteFooter />}
               </div>
               <TailwindIndicator />
+              <JsonLd />
             </ThemeProvider>
           </SessionProvider>
         </body>

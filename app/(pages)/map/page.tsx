@@ -1,18 +1,12 @@
-"use client"
+import React from 'react'
+import MapPageComp from '@/app/custom-components/pages/MapPageComp'
+import { Metadata } from 'next'
+import { mapMetadata } from '@/config/metadata/pages'
 
-import React from "react"
-import dynamic from "next/dynamic"
+export const metadata: Metadata = mapMetadata
 
-import Sidebar from "../../custom-components/Sidebar"
-
-const DynamicMap = dynamic(() => import("../../custom-components/Map"), {
-  ssr: false, // Disables server-side rendering
-})
-export default function Map() {
+export default function MapPage() {
   return (
-    <div className="flex h-screen w-full">
-      <Sidebar />
-      <DynamicMap />
-    </div>
+    <MapPageComp />
   )
 }

@@ -1,4 +1,3 @@
-"use client"
 
 import Link from "next/link"
 import { ArrowRightIcon } from "lucide-react"
@@ -15,6 +14,11 @@ import AnimatedListDemo from "./animatedlist-demo/page"
 import Poetry from "./custom-components/Poetry"
 import GameCard from "./game-card/page"
 import GlobePage from "./globe-section/page"
+
+import { homeMetadata } from "@/config/metadata/pages"
+import { Metadata } from "next"
+
+export const metadata: Metadata = homeMetadata
 
 export default function IndexPage() {
   return (
