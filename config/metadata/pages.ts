@@ -1,5 +1,4 @@
 import { Metadata } from "next"
-import { Districts } from "@/app/types/Districts"
 
 export const homeMetadata: Metadata = {
   title: {
@@ -89,10 +88,3 @@ export const districtsMetadata: Metadata = {
   },
 }
 
-// Dynamic District Metadata
-export const districtMetadata = (district: Districts) => {
-  return {
-    title: `${district.name} | Pukhtunkhwa Encyclopedia`,
-    description: `Learn about ${district.name}, a district in Khyber Pakhtunkhwa. Discover its culture, history, landmarks, and local traditions.`,
-  }
-}
