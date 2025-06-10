@@ -1,5 +1,6 @@
 "use client"
 
+import { signIn } from "next-auth/react"
 import { useState } from "react"
 import { ToastContainer, toast } from "react-toastify"
 
@@ -54,6 +55,15 @@ export default function SignUpForm() {
 
   return (
     <>
+      <div className="flex justify-center items-center mb-4">
+        <button
+          id="g_id_onload"
+          onClick={() => signIn("google")}
+          className="bg-white text-black px-4 py-2 rounded-md shadow-md hover:bg-gray-200 transition duration-300 ease-in-out"
+        >
+          Continue with Google
+        </button>
+      </div>
       <form onSubmit={handleSubmit} className="w-full max-w-md space-y-4 p-6">
         {error && (
           <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded">

@@ -4,7 +4,7 @@ import { NextAuthOptions } from "next-auth"
 import CredentialsProvider from "next-auth/providers/credentials"
 import Google from "next-auth/providers/google"
 
-import clientPromise from "@/app/utils/MongoDB"
+import { pgClient } from "@/app/lib/pg"
 
 export const authOptions: NextAuthOptions = {
   providers: [
@@ -15,95 +15,47 @@ export const authOptions: NextAuthOptions = {
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials) {
-        const { email, password } = credentials || {}
-        if (!email || !password) {
+        if (!credentials?.email || !credentials?.password) {
           console.error("Missing email or password")
           throw new Error("Missing email or password")
         }
 
         try {
-          const client = await clientPromise
-          const db = client.db("pukhtunkhwa")
+          console.log("Attempting to authorize user:", credentials.email)
+          await pgClient.connect()
+          
+          const userResult = await pgClient.query(
+            "SELECT * FROM users WHERE email = $1",
+            [credentials.email]
+          )
 
-          const user = await db.collection("users").findOne({ email })
-          if (!user) {
-            console.error("No user found with this email:", email)
+          if (!userResult.rows.length) {
+            console.error("No user found with email:", credentials.email)
             throw new Error("No user found with this email")
           }
 
-          const isValidPassword = await bcrypt.compare(password, user.password)
+          const user = userResult.rows[0]
+          console.log("Found user:", { id: user.id, email: user.email, role: user.role })
+
+          const isValidPassword = await bcrypt.compare(
+            credentials.password,
+            user.password
+          )
+
           if (!isValidPassword) {
-            console.error("Invalid password for email:", email)
+            console.error("Invalid password for email:", credentials.email)
             throw new Error("Invalid password")
           }
+
           return {
-            id: user._id.toString(),
+            id: user.id.toString(),
             name: user.name,
             email: user.email,
             role: user.role,
           }
         } catch (error) {
           console.error("Authorize error:", error)
-          throw new Error("Invalid email or password")
-        }
-      },
-    }),
-    CredentialsProvider({
-      id: "google-jwt",
-      name: "Google",
-      credentials: {
-        credential: { type: "text" },
-      },
-      async authorize(credentials) {
-        if (!credentials?.credential) throw new Error("Missing Google token")
-
-        try {
-          const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID)
-          const ticket = await client.verifyIdToken({
-            idToken: credentials.credential,
-            audience: process.env.GOOGLE_CLIENT_ID,
-          })
-
-          const payload = ticket.getPayload()
-          if (!payload) throw new Error("Invalid Google token")
-
-          // Reuse your existing user handling logic
-          const mongoClient = await clientPromise
-          const db = mongoClient.db("pukhtunkhwa")
-
-          const existingUser = await db
-            .collection("users")
-            .findOne({ email: payload.email })
-
-          // Same user creation/update logic as original Google provider
-          if (!existingUser) {
-            const newUser = await db.collection("users").insertOne({
-              name: payload.name,
-              email: payload.email,
-              picture: payload.picture,
-              sub: payload.sub,
-              email_verified: payload.email_verified,
-              given_name: payload.given_name,
-              family_name: payload.family_name,
-              locale: payload.locale,
-              role: "user",
-            })
-
-            return {
-              id: newUser.insertedId.toString(),
-              ...payload,
-              role: "user",
-            }
-          }
-
-          return {
-            id: existingUser._id.toString(),
-            ...existingUser,
-            role: existingUser.role,
-          }
-        } catch (error) {
-          console.error("Google JWT verification failed:", error)
-          return null
+          throw error
         }
       },
     }),
@@ -114,7 +66,7 @@ export const authOptions: NextAuthOptions = {
       name: "Google",
       clientId: process.env.GOOGLE_CLIENT_ID!,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
-      profile: async (profile) => {
+      profile(profile) {
         return {
           id: profile.sub,
           name: profile.name,
@@ -150,5 +102,6 @@ export const authOptions: NextAuthOptions = {
   session: {
     strategy: "jwt",
   },
+  debug: process.env.NODE_ENV === "development",
   secret: process.env.NEXTAUTH_SECRET,
 }

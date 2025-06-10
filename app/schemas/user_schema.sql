@@ -1,5 +1,8 @@
+-- Create extension for pgcrypto
+CREATE EXTENSION IF NOT EXISTS "pgcrypto";
+-- Create users table
 CREATE TABLE IF NOT EXISTS users (
-  id SERIAL PRIMARY KEY,
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   name TEXT NOT NULL,
   email TEXT NOT NULL UNIQUE,
   password TEXT NOT NULL,
@@ -9,7 +12,7 @@ CREATE TABLE IF NOT EXISTS users (
   is_active BOOLEAN DEFAULT TRUE
 );
 
--- Function to automatically update updated_at timestamp
+-- Create function to automatically update updated_at timestamp
 CREATE OR REPLACE FUNCTION update_updated_at_column()
 RETURNS TRIGGER AS $$
 BEGIN
@@ -18,7 +21,7 @@ BEGIN
 END;
 $$ language 'plpgsql';
 
--- Trigger to call the update function
+-- Create trigger to call the update function
 CREATE TRIGGER update_users_updated_at
     BEFORE UPDATE ON users
     FOR EACH ROW

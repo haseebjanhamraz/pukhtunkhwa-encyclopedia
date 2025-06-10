@@ -5,11 +5,9 @@ import { useRouter } from "next/navigation"
 import { signIn, useSession } from "next-auth/react"
 import { ToastContainer, toast } from "react-toastify"
 
-import GoogleAuth from "./GoogleAuth"
 import "react-toastify/dist/ReactToastify.css"
 
 export default function SignInForm() {
-  const client_id = process.env.GOOGLE_CLIENT_ID
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const [error, setError] = useState("")
@@ -52,7 +50,6 @@ export default function SignInForm() {
         } else if (isAuthenticated && session?.user.role === "user") {
           router.push("/user")
         }
-        // router.push("/")
       } else {
         setError("Invalid credentials")
       }
@@ -74,7 +71,6 @@ export default function SignInForm() {
         >
           Continue with Google
         </button>
-        {/* <GoogleAuth /> */}
       </div>
       <form onSubmit={handleSubmit} className="w-full max-w-md space-y-4 p-6">
         {error && (
