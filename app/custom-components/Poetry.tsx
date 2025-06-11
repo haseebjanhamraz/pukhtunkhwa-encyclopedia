@@ -50,7 +50,7 @@ const Poetry = () => {
           className="absolute inset-0 z-0"
         >
           <img
-            src={poetry[currentIndex]?.backgroundImg || "/tapa-placeholder.jpg"}
+            src={"/tapa-placeholder.jpg"}
             alt="Background"
             className="w-full h-full object-cover absolute inset-0"
           />
@@ -70,11 +70,8 @@ const Poetry = () => {
           }}
           className="relative z-10 flex flex-col justify-center items-center h-full text-center px-4"
         >
-          <p className="text-2xl md:text-4xl font-destar text-white mb-4 rtl:text-right drop-shadow-lg">
-            {poetry[currentIndex]?.verse[0]}
-          </p>
-          <p className="text-2xl md:text-4xl font-destar text-white mb-4 rtl:text-right drop-shadow-lg">
-            {poetry[currentIndex]?.verse[1]}
+          <p className="whitespace-pre-line text-2xl md:text-4xl font-destar text-white mb-4 rtl:text-right drop-shadow-lg">
+            {poetry[currentIndex]?.content}
           </p>
         </motion.div>
       </AnimatePresence>
@@ -101,9 +98,8 @@ const Poetry = () => {
           {poetry.map((_, index) => (
             <div
               key={index}
-              className={`w-3 h-3 rounded-full transition-all duration-300 ${
-                index === currentIndex ? "bg-white w-6" : "bg-white/50"
-              }`}
+              className={`w-3 h-3 rounded-full transition-all duration-300 ${index === currentIndex ? "bg-white w-6" : "bg-white/50"
+                }`}
             />
           ))}
         </div>

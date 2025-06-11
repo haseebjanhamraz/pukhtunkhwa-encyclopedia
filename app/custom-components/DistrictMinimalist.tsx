@@ -4,17 +4,18 @@ import Link from "next/link"
 export default function DistrictMinimalist(district: {
   // Define the structure of the district prop
   district: {
-    _id?: string
+    id?: string
     name: string
     image: string
-    coordinates: number[]
+    latitude: number
+    longitude: number
     population: number
     area: number
     description: string
     history: string
     attractions: string[]
-    funFacts: string[]
-    mustVisit: boolean
+    fun_facts: string[]
+    must_visit: boolean
   }
 }) {
   return (
@@ -29,7 +30,7 @@ export default function DistrictMinimalist(district: {
         />
       </div>
       <div className="p-5">
-        <Link href={`/districts/${district.district._id}`}>
+        <Link href={`/districts/${district.district.id}`}>
           <h5 className="mb-2 text-2xl font-bold tracking-tight text-green-700">
             {district.district.name}
           </h5>

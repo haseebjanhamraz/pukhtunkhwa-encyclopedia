@@ -1,4 +1,4 @@
-import { websiteJsonLd, organizationJsonLd } from "@/lib/jsonld"
+import { websiteJsonLd, organizationJsonLd } from "@/app/lib/jsonld"
 
 export function JsonLd() {
     return (

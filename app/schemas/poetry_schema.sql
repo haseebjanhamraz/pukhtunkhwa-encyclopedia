@@ -1,0 +1,8 @@
+CREATE TABLE IF NOT EXISTS poetry_verse (
+    id SERIAL PRIMARY KEY,
+    content TEXT NOT NULL,
+    poet TEXT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    UNIQUE (content)
+);

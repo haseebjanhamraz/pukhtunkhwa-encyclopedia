@@ -4,17 +4,18 @@ import { useEffect, useState } from "react"
 import axios from "axios"
 
 interface District {
-  _id: string
+  id: string
   name: string
   image: string
-  coordinates: number[]
+  latitude: number
+  longitude: number
   population: number
   area: number
   description: string
   history: string
   attractions: string[]
-  funFacts: string[]
-  mustVisit: boolean
+  fun_facts: string[]
+  must_visit: boolean
 }
 
 export default function useDistricts() {

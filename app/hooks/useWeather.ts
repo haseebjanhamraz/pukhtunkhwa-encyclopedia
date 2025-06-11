@@ -4,7 +4,7 @@ import { useEffect, useState } from "react"
 import axios from "axios"
 import { Weather } from "../types/Weather"
 
-export default function useWeather(_id: string) {
+export default function useWeather(id: string) {
   const [weather, setWeather] = useState<Weather | null>(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
@@ -12,7 +12,7 @@ export default function useWeather(_id: string) {
   useEffect(() => {
     const fetchWeather = async () => {
       try {
-        const response = await axios.get(`/api/weather/${_id}`)
+        const response = await axios.get(`/api/weather/${id}`)
         setWeather(response.data)
         setLoading(false)
       } catch (err) {
@@ -24,7 +24,7 @@ export default function useWeather(_id: string) {
     }
 
     fetchWeather()
-  }, [_id])
+  }, [id])
 
   return { weather, loading, error }
 }

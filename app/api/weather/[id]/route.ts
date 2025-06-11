@@ -12,9 +12,7 @@ export async function GET(request: NextRequest, { params }: { params: Promise<{ 
 
     const district = await districtResponse.json()
 
-    const { coordinates } = district
-    const latitude = coordinates[0]
-    const longitude = coordinates[1]
+    const { latitude, longitude } = district
 
     if (!latitude || !longitude) {
       throw new Error('District coordinates not found')

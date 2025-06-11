@@ -170,33 +170,33 @@ const DistrictsSlider = () => {
                 >
                     {districts.map((district) => (
                         <div
-                            key={district._id}
+                            key={district.id}
                             className="flex-shrink-0"
                             style={{
                                 width: `${100 / itemsPerView}%`,
                                 minWidth: viewportWidth < 640 ? '280px' : '300px'
                             }}
-                            onMouseEnter={() => setHoveredCard(district._id)}
+                            onMouseEnter={() => setHoveredCard(district.id)}
                             onMouseLeave={() => setHoveredCard(null)}
                         >
-                            <div className={`group cursor-pointer bg-white dark:bg-gray-700 rounded-lg sm:rounded-xl shadow-md hover:shadow-xl sm:hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-1 sm:hover:-translate-y-3 overflow-hidden border-2 ${hoveredCard === district._id ? 'border-blue-400 dark:border-blue-500 scale-102 sm:scale-105' : 'border-transparent hover:border-blue-200 dark:hover:border-blue-800'}`}>
+                            <div className={`group cursor-pointer bg-white dark:bg-gray-700 rounded-lg sm:rounded-xl shadow-md hover:shadow-xl sm:hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-1 sm:hover:-translate-y-3 overflow-hidden border-2 ${hoveredCard === district.id ? 'border-blue-400 dark:border-blue-500 scale-102 sm:scale-105' : 'border-transparent hover:border-blue-200 dark:hover:border-blue-800'}`}>
                                 {/* Image Container - Fixed 300px height */}
                                 <div className="relative overflow-hidden" style={{ height: '300px' }}>
                                     <Image
                                         src={district.image}
                                         alt={district.name}
-                                        className={`w-full h-full object-cover transition-all duration-700 ${hoveredCard === district._id ? 'scale-110 rotate-2' : 'group-hover:scale-105'}`}
+                                        className={`w-full h-full object-cover transition-all duration-700 ${hoveredCard === district.id ? 'scale-110 rotate-2' : 'group-hover:scale-105'}`}
                                         width={300}
                                         height={300}
                                     />
 
                                     {/* Animated overlay */}
-                                    <div className={`absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent transition-all duration-500 ${hoveredCard === district._id ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'}`} />
+                                    <div className={`absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent transition-all duration-500 ${hoveredCard === district.id ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'}`} />
                                 </div>
 
                                 {/* Content with enhanced animations */}
                                 <div className="p-4 sm:p-6 relative">
-                                    <h3 className={`text-lg sm:text-xl font-bold text-gray-900 dark:text-white mb-2 transition-all duration-300 ${hoveredCard === district._id ? 'text-blue-600 dark:text-blue-400 transform -translate-y-1' : 'group-hover:text-blue-600 dark:group-hover:text-blue-400'}`}>
+                                    <h3 className={`text-lg sm:text-xl font-bold text-gray-900 dark:text-white mb-2 transition-all duration-300 ${hoveredCard === district.id ? 'text-blue-600 dark:text-blue-400 transform -translate-y-1' : 'group-hover:text-blue-600 dark:group-hover:text-blue-400'}`}>
                                         {district.name}
                                     </h3>
                                     <p className="text-gray-600 dark:text-gray-300 text-xs sm:text-sm leading-relaxed mb-3 sm:mb-4">
@@ -204,8 +204,8 @@ const DistrictsSlider = () => {
                                     </p>
 
                                     {/* Interactive explore button */}
-                                    <div className={`flex items-center justify-between transition-all duration-300 ${hoveredCard === district._id ? 'transform translate-y-0 opacity-100' : 'transform translate-y-2 opacity-0 group-hover:translate-y-0 group-hover:opacity-100'}`}>
-                                        <Link href={`/districts/${district._id}`}>
+                                    <div className={`flex items-center justify-between transition-all duration-300 ${hoveredCard === district.id ? 'transform translate-y-0 opacity-100' : 'transform translate-y-2 opacity-0 group-hover:translate-y-0 group-hover:opacity-100'}`}>
+                                        <Link href={`/districts/${district.id}`}>
                                             <button className="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white px-3 sm:px-4 py-1.5 sm:py-2 rounded-full text-xs sm:text-sm font-semibold transition-all duration-300 hover:scale-105 hover:shadow-lg">
                                                 Explore District
                                             </button>

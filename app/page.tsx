@@ -3,7 +3,7 @@ import Link from "next/link"
 import { ArrowRightIcon } from "lucide-react"
 
 import { siteConfig } from "@/config/site"
-import { cn } from "@/lib/utils"
+import { cn } from "@/app/lib/utils"
 import { buttonVariants } from "@/components/ui/button"
 import AnimatedShinyText from "@/components/magicui/animated-shiny-text"
 import LinearGradient from "@/components/magicui/linear-gradient"

@@ -1,14 +1,12 @@
-// This file contains a custom React hook for fetching poetry data from an API.
-
 import { useEffect, useState } from "react"
 import axios from "axios"
 
 interface Poetry {
-  _id: string
-  verse: string[]
-  backgroundImg: string
+  id: string
+  content: string[]
   poet: string
-  type: string
+  created_at: string
+  updated_at: string
 }
 
 export default function usePoetry() {

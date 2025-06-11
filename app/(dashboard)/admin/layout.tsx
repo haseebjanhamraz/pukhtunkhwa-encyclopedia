@@ -3,8 +3,8 @@
 import { useState } from "react"
 
 import "@/styles/globals.css"
-import { fontSans } from "@/lib/fonts"
-import { cn } from "@/lib/utils"
+import { fontSans } from "@/app/lib/fonts"
+import { cn } from "@/app/lib/utils"
 import { DashboardHeader } from "@/components/dash-header"
 import DashboardSidebar from "@/components/dash-sidebar"
 

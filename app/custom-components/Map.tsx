@@ -126,7 +126,7 @@ const KPMap = () => {
         <Marker
           key={index}
           title={district.name}
-          position={[district.coordinates[0], district.coordinates[1]]}
+          position={[district.latitude, district.longitude]}
           icon={customIcon}
         >
           <Popup>

@@ -3,8 +3,8 @@
 import { usePathname } from "next/navigation"
 import { SessionProvider } from "next-auth/react"
 
-import { fontSans } from "@/lib/fonts"
-import { cn } from "@/lib/utils"
+import { fontSans } from "@/app/lib/fonts"
+import { cn } from "@/app/lib/utils"
 import { SiteFooter } from "@/components/site-footer"
 import { SiteHeader } from "@/components/site-header"
 import { TailwindIndicator } from "@/components/tailwind-indicator"

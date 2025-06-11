@@ -7,7 +7,7 @@ import { usePathname } from "next/navigation"
 
 import { NavItem } from "@/types/nav"
 import { siteConfig } from "@/config/site"
-import { cn } from "@/lib/utils"
+import { cn } from "@/app/lib/utils"
 
 interface MainNavProps {
   items?: NavItem[]

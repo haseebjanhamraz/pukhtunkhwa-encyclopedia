@@ -7,17 +7,18 @@ import WeatherWidget from "@/app/custom-components/WeatherWidget"
 import DistrictsSlider from "@/app/custom-components/pages/DistrictsSlider"
 
 interface District {
-    _id: string
+    id: string
     name: string
     image: string
-    coordinates: number[]
+    latitude: number
+    longitude: number
     population: number
     area: number
     description: string
     history: string
     attractions: string[]
-    funFacts: string[]
-    mustVisit: boolean
+    fun_facts: string[]
+    must_visit: boolean
 }
 
 interface WeatherData {
@@ -80,8 +81,10 @@ function DistrictPageComp() {
                 setLoading(false)
                 setIsVisible(true)
 
-                // Fetch weather data using the new API
-                fetchWeather(params.id as string)
+                // Fetch weather data using the district data
+                if (data) {
+                    fetchWeather(data.id)
+                }
             } catch (err) {
                 setError(err instanceof Error ? err.message : "An unknown error occurred")
                 setLoading(false)
@@ -91,14 +94,16 @@ function DistrictPageComp() {
         fetchDistrict()
     }, [params.id])
 
-    const fetchWeather = async (districtId: string) => {
+    const fetchWeather = async (id: string) => {
         try {
-            const response = await fetch(`/api/weather/${districtId}`)
+            const response = await fetch(`/api/weather/${id}`)
             if (!response.ok) throw new Error('Failed to fetch weather')
             const weatherData = await response.json()
             setWeather(weatherData)
         } catch (error) {
             console.error("Weather fetch error:", error)
+            // Don't set weather data if there's an error
+            setWeather(null)
         }
     }
 
@@ -110,10 +115,10 @@ function DistrictPageComp() {
     }, [])
 
     const getWeatherEffect = () => {
-        if (!weather || !weather.weather.length) return ''
+        if (!weather || !weather.weather || !weather.weather.length) return ''
 
         const mainWeather = weather.weather[0].main.toLowerCase()
-        const cloudiness = weather.clouds.all
+        const cloudiness = weather.clouds?.all || 0
 
         let effects = []
 
@@ -373,7 +378,7 @@ function DistrictPageComp() {
                     </h1>
                     <div className="flex items-center justify-center space-x-2 text-white/80 text-xl">
                         <MapPin className="w-6 h-6" />
-                        <span>{district.coordinates.join(", ")}</span>
+                        <span>{district.latitude}, {district.longitude}</span>
                     </div>
                 </div>
 
@@ -424,7 +429,7 @@ function DistrictPageComp() {
                             </div>
                             <div>
                                 <div className="text-lg font-bold text-gray-800 dark:text-white">
-                                    {district.coordinates[0].toFixed(2)}, {district.coordinates[1].toFixed(2)}
+                                    {district.latitude.toFixed(2)}, {district.longitude.toFixed(2)}
                                 </div>
                                 <div className="text-gray-600 dark:text-gray-400">Coordinates</div>
                             </div>
@@ -480,7 +485,7 @@ function DistrictPageComp() {
                             Fun Facts
                         </h2>
                         <div className="flex flex-wrap gap-3">
-                            {district.funFacts.map((fact, index) => (
+                            {district.fun_facts.map((fact, index) => (
                                 <span key={index} className="inline-flex items-center px-4 py-2 rounded-full bg-gradient-to-r from-indigo-500 to-purple-600 text-white font-medium shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 transform"
                                     style={{ animationDelay: `${index * 100}ms` }}
                                 >

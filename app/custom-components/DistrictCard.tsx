@@ -7,7 +7,7 @@ export default function DistrictCard(district: any) {
   if (!district.district) {
     return <div className="text-center">No district found</div>
   }
-  const { weather, loading, error } = useWeather(district.district._id)
+  const { weather, loading, error } = useWeather(district.district.id)
   if (loading) return <div>Loading...</div>
   if (error) return <div>Error: {error}</div>
   if (!district) return <div>District not found</div>
@@ -24,7 +24,7 @@ export default function DistrictCard(district: any) {
         />
       </div>
       <div className="p-5">
-        <Link href={`districts/${district.district._id}`}>
+        <Link href={`districts/${district.district.id}`}>
           <h5 className="mb-2 text-2xl font-bold tracking-tight text-green-700">
             {district.district.name}
           </h5>

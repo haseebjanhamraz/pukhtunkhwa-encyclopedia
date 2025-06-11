@@ -1,6 +1,6 @@
 import * as React from "react"
 import { motion, useMotionTemplate, useMotionValue, HTMLMotionProps } from "framer-motion"
-import { cn } from "@/lib/utils"
+import { cn } from "@/app/lib/utils"
 
 interface BeamCardProps extends HTMLMotionProps<"div"> {
   beamColor?: string
